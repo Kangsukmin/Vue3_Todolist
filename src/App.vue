@@ -24,4 +24,5 @@ export default defineComponent({
   color: #2c3e50;
   margin-top: 60px;
 }
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
 </style>
