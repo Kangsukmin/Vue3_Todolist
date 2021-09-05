@@ -8,9 +8,9 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  setup() {
+  setup(_, { emit }) {
     const clearAll = () => {
-      localStorage.clear();
+      emit("removeAll");
     };
     return {
       clearAll,
