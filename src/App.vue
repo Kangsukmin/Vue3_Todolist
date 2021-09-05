@@ -1,28 +1,45 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <div id="app">
+    <TodoHeader></TodoHeader>
+    <TodoInput></TodoInput>
+    <TodoList></TodoList>
+    <TodoFooter></TodoFooter>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
+import TodoHeader from "./components/TodoPage/TodoHeader.vue";
+import TodoInput from "./components/TodoPage/TodoInput.vue";
+import TodoList from "./components/TodoPage/TodoList.vue";
+import TodoFooter from "./components/TodoPage/TodoFooter.vue";
 
 export default defineComponent({
-  name: "App",
   components: {
-    HelloWorld,
+    TodoHeader,
+    TodoInput,
+    TodoList,
+    TodoFooter,
+  },
+  setup() {
+    return {};
   },
 });
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+body {
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  background-color: #f6f6f8;
 }
-@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
+input {
+  border-style: groove;
+  width: 200px;
+}
+button {
+  border-style: groove;
+}
+.shadow {
+  box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.03);
+}
 </style>
