@@ -14,17 +14,14 @@
 import { defineComponent, reactive } from "vue";
 
 export default defineComponent({
-  setup() {
+  setup(_, { emit }) {
     const state = reactive({
       newTodoItem: "",
     });
 
     const addTodo = () => {
-      if (state.newTodoItem !== "") {
-        const value: string = state.newTodoItem && state.newTodoItem.trim();
-        localStorage.setItem(value, value);
-        clearInput();
-      }
+      emit("addTodo", state.newTodoItem);
+      clearInput();
     };
 
     const clearInput = () => {

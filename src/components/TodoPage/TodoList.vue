@@ -1,11 +1,7 @@
 <template>
   <section>
     <ul>
-      <li
-        v-for="(todoItem, index) in state.todoItem"
-        :key="todoItem"
-        class="shadow"
-      >
+      <li v-for="(todoItem, index) in propsdata" :key="todoItem" class="shadow">
         <i class="checkBtn fas fa-check" aria-hidden="true" />
         {{ todoItem }}
         <span
@@ -21,32 +17,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  setup() {
-    interface iState {
-      todoItem: string[];
-    }
-
-    const state: iState = reactive({
-      todoItem: [],
-    });
-
-    // Created
-    if (localStorage.length > 0) {
-      for (let i = 0; i < localStorage.length; i++) {
-        state.todoItem.push(localStorage.key(i) as string);
-      }
-    }
-
+  props: {
+    propsdata: {
+      type: Array,
+      required: true,
+    },
+  },
+  setup(props, { emit }) {
     const removeTodo = (todoItem, index) => {
-      localStorage.removeItem(todoItem);
-      state.todoItem.splice(index, 1);
+      emit("removeTodo", todoItem, index);
     };
 
     return {
-      state,
       removeTodo,
     };
   },
