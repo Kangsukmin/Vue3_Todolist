@@ -3,7 +3,7 @@
     <TodoHeader></TodoHeader>
     <TodoInput @addTodo="addTodo"></TodoInput>
     <TodoList :propsdata="state.todoItems" @removeTodo="removeTodo"></TodoList>
-    <TodoFooter></TodoFooter>
+    <TodoFooter @removeAll="removeAll"></TodoFooter>
   </div>
 </template>
 
@@ -43,6 +43,11 @@ export default defineComponent({
       state.todoItems.splice(index, 1);
     };
 
+    const removeAll = () => {
+      localStorage.clear();
+      state.todoItems = [];
+    };
+
     // Created
     if (localStorage.length > 0) {
       for (let i = 0; i < localStorage.length; i++) {
@@ -54,6 +59,7 @@ export default defineComponent({
       state,
       addTodo,
       removeTodo,
+      removeAll,
     };
   },
 });
