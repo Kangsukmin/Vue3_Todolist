@@ -1,14 +1,14 @@
 <template>
   <div id="app">
     <TodoHeader></TodoHeader>
-    <TodoInput></TodoInput>
-    <TodoList></TodoList>
+    <TodoInput @addTodo="addTodo"></TodoInput>
+    <TodoList :propsdata="state.todoItems" @removeTodo="removeTodo"></TodoList>
     <TodoFooter></TodoFooter>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, reactive } from "vue";
 import TodoHeader from "./components/TodoPage/TodoHeader.vue";
 import TodoInput from "./components/TodoPage/TodoInput.vue";
 import TodoList from "./components/TodoPage/TodoList.vue";
@@ -22,7 +22,39 @@ export default defineComponent({
     TodoFooter,
   },
   setup() {
-    return {};
+    interface iState {
+      todoItems: string[];
+    }
+
+    const state: iState = reactive({
+      todoItems: [],
+    });
+
+    const addTodo = (inputValue: string) => {
+      if (inputValue !== "") {
+        const value: string = inputValue && inputValue.trim();
+        localStorage.setItem(value, value);
+        state.todoItems.push(value);
+      }
+    };
+
+    const removeTodo = (todoItem: string, index: number) => {
+      localStorage.removeItem(todoItem);
+      state.todoItems.splice(index, 1);
+    };
+
+    // Created
+    if (localStorage.length > 0) {
+      for (let i = 0; i < localStorage.length; i++) {
+        state.todoItems.push(localStorage.key(i) as string);
+      }
+    }
+
+    return {
+      state,
+      addTodo,
+      removeTodo,
+    };
   },
 });
 </script>
